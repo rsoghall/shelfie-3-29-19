@@ -5,7 +5,6 @@ export class Dashboard extends Component {
   render() {
     return (
       <div>
-          Dashboard
         <Product />
       </div>
     )

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Product from '../Product/Product';
+
 
 export class Form extends Component {
     constructor(){
@@ -18,6 +20,7 @@ export class Form extends Component {
         [name]: value
       })
     }
+
     handleClick =() => {
       this.setState({
         image_url: '',
@@ -27,10 +30,39 @@ export class Form extends Component {
 
     }
 
+    submit = (e) => {
+      e.preventDefault();
+      axios.post('/api/products')
+        .then(res => {
+          this.setState({
+            img_url: '',
+            prod_name: '',
+            price: 0
+          })
+          this.props.history.push('/');
+        })
+        .catch(err => console.log('create product error'));
+    }
+    
+    // submit = (e) => {
+    //   e.preventDefault();
+    //   let product=this.state;
+    //   this.props.handleCreateProduct(product)
+      
+    //     .then(res => {
+    //       this.setState({
+    //         image_url: '',
+    //         prod_name: '',
+    //         price: 0
+    //       })
+    //     })
+    //     .catch(err => console.log('submit error'));
+    // }
+
 
   render() {
     let {products} = this.props
-    let {product_id, image_url, prod_name, price} = this.state
+    let { image_url, prod_name, price} = this.state
     return (
       <div>
         Form

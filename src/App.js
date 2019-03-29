@@ -21,14 +21,16 @@ class App extends Component {
           products: res.data
         })
       }).catch(err => console.log(`axios get error: ${err}`))
-     
     }
 
   render() {
     return (
       <div className="App">
         <Dashboard />
-        <Form products={this.state.products}/>
+        <Form 
+        products={this.state.products}
+    
+        />
         <Header />
       </div>
     );

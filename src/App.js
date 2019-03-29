@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
+import Dashboard from './component/Dashboard/Dashboard';
+import Form from './component/Form/Form';
+import Header from './component/Header/Header';
 
 class App extends Component {
+    constructor(){
+      super();
+      this.state={
+        products: []
+      }
+    }
+
+    componentDidMount() {
+      axios.get('/api/products')
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          products: res.data
+        })
+      }).catch(err => console.log(`axios get error: ${err}`))
+     
+    }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Dashboard />
+        <Form products={this.state.products}/>
+        <Header />
       </div>
     );
   }
